@@ -1,0 +1,10 @@
+<html>
+<script type="text/javascript">
+function startSearch(event){
+event.form.target.submit();
+}</script>
+<body>
+<form action="http://192.168.43.240/cgi-bin/speak.py">
+<input type=search name="c" speech required onspeechchange=startSearch/>
+<input type="submit" />
+</form></body></html>
