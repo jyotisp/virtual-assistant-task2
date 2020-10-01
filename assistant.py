@@ -19,6 +19,8 @@ from PIL import ImageTk
 from PIL import Image
 import time
 import details
+import speedtest
+import psutil
 
 engine=pyttsx3.init('sapi5')
 window=Tk()
@@ -131,6 +133,26 @@ def command1():
               print(results)
               speak(results)
 
+
+          elif "speed test" in query:
+                try:
+                    speak("sure! wait a second to measure")
+                    st = speedtest.Speedtest()
+                    server_names = []
+                    st.get_servers(server_names)
+                    ping = st.results.ping
+                    downlink_Mbps = round(st.download() / 1000000, 2)
+                    uplink_Mbps = round(st.upload() / 1000000, 2)
+                    speak('ping {} ms'.format(ping))
+                    speak("The uplink is {} Mbps".format(uplink_Mbps))
+                    speak("The downlink is {}Mbps".format(downlink_Mbps))
+                except:
+                    speak("I couldn't run a speedtest")              
+
+          elif "battery" in query:
+                battery = psutil.sensors_battery()
+                speak("Your system is at " + str(battery.percent) + " percent")
+
           elif 'open youtube' in query:
               webbrowser.open("youtube.com")
 
@@ -158,7 +180,6 @@ def command1():
           elif 'downloads folder' in query:
               path="C:\\Users\\JYOYHI S PAWAR\\Downloads"
               os.startfile(path)
-
 
           elif 'email to' in query:
               speak("whats the content for the email")
